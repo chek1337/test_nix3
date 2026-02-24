@@ -5,6 +5,7 @@
     users.users.chek = {
       isNormalUser = true;
       home = "/home/chek";
+      extraGroups = [ "wheel" ];
     };
   };
 }
