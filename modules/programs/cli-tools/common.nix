@@ -6,6 +6,7 @@ let
         git
         vim
         just
+        fzf
       ];
     };
 in
