@@ -22,5 +22,10 @@
 
     import-tree.url = "github:vic/import-tree";
     systems.url = "github:nix-systems/default-linux";
+
+    hyprland = {
+      url = "github:hyprwm/Hyprland";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 }
