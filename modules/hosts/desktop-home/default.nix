@@ -1,7 +1,7 @@
 { config, ... }:
 let
   flakeConfig = config;
-  modules = [ "cli-tools" "firefox" "sway" "telegram" "nautilus"];
+  modules = [ "cli-tools" "gui-tools" "sway" "dektop-env"];
 in
 {
   flake = {

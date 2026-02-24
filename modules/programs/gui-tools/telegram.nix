@@ -1,5 +1,5 @@
 {
-  flake.modules.homeManager.telegram =
+  flake.modules.homeManager.gui-tools =
     { pkgs, ... }:
     {
       home.packages = with pkgs; [ telegram-desktop ];
