@@ -9,7 +9,7 @@ in
     modules.nixos."hosts/desktop-home" = {
       imports =
         (flakeConfig.flake.lib.loadNixosAndHmModuleForUser flakeConfig modules)
-        ++ [ ./hardware-configuration.nix ];
+        ++ [ ./_hardware-configuration.nix ];
     };
   };
 }
