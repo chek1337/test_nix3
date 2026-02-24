@@ -5,6 +5,7 @@ let
       environment.systemPackages = with pkgs; [
         git
         vim
+        just
       ];
     };
 in
