@@ -27,32 +27,42 @@
     };
 
   flake.modules.homeManager.sway =
-    { lib, ... }:
+    { pkgs, lib, ... }:
     {
+      home.sessionVariables = {
+        XDG_CURRENT_DESKTOP = "sway";
+        XDG_SESSION_DESKTOP = "sway";
+      };
+
       wayland.windowManager.sway = {
         enable = true;
         config = {
           terminal = "kitty";
           modifier = "Mod4";
 
-          input."*" = {
-            xkb_layout = "us,ru";
-            xkb_options = "grp:alt_shift_toggle";
+          gaps.inner = 7;
+          bars = [];
+          window.titlebar = false;
+
+          input = {
+            "type:keyboard" = {
+              xkb_layout = "us,ru";
+              xkb_options = "grp:alt_shift_toggle";
+              repeat_delay = "300";
+              repeat_rate = "60";
+            };
+            "type:touchpad" = {
+              natural_scroll = "enabled";
+              tap = "enabled";
+            };
           };
 
           keybindings = let
             modifier = "Mod4";
           in lib.mkOptionDefault {
             "${modifier}+Return" = "exec kitty";
-            "${modifier}+d" = "exec rofi -show drun";
+            "${modifier}+d" = "exec wofi --show drun";
           };
-        };
-      };
-
-      programs.kitty = {
-        enable = true;
-        settings = {
-          confirm_os_window_close = 0;
         };
       };
     };
