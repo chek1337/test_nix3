@@ -90,3 +90,8 @@ update-input input:
 gc:
     sudo nix-collect-garbage -d
     nix-collect-garbage -d
+
+# Format all nix files
+[group("utils")]
+fmt:
+    nixfmt-rfc-style modules/ flake.nix

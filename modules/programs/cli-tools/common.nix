@@ -7,6 +7,7 @@ let
         vim
         just
         fzf
+        nixfmt
       ];
     };
 in
