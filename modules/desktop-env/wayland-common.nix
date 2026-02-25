@@ -1,5 +1,5 @@
 {
-  flake.modules.nixos.wayland =
+  flake.modules.nixos.wayland-common =
     { pkgs, ... }:
     {
       environment.systemPackages = with pkgs; [

@@ -12,5 +12,8 @@
       home = "/home/chek";
       extraGroups = [ "wheel" ];
     };
+    nixpkgs.config.permittedInsecurePackages = [
+      "openssl-1.1.1w"
+    ];
   };
 }
