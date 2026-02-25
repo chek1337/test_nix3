@@ -1,7 +1,7 @@
 { config, ... }:
 let
   flakeConfig = config;
-  shell = "nu";
+  shell = "zsh"; 
   theme = "nord";
   modules = [
     "cli-tools"
