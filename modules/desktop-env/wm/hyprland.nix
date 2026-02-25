@@ -2,24 +2,24 @@
 {
   flake.modules.nixos.hyprland =
     { pkgs, ... }:
+    let
+      hyprlandPkg = inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.hyprland;
+    in
     {
       programs.hyprland = {
         enable = true;
-        package = inputs.hyprland.packages.${pkgs.system}.hyprland;
+        package = hyprlandPkg;
         xwayland.enable = true;
       };
-
       services.xserver.enable = false;
       security.polkit.enable = true;
-
       services.greetd = {
         enable = true;
         settings.default_session = {
-          command = "${inputs.hyprland.packages.${pkgs.system}.hyprland}/bin/Hyprland";
+          command = "${hyprlandPkg}/bin/Hyprland";
           user = "chek";
         };
       };
-
       environment.systemPackages = with pkgs; [
         wayland
         grim
@@ -30,17 +30,19 @@
 
   flake.modules.homeManager.hyprland =
     { pkgs, lib, ... }:
+    let
+      hyprlandPkg = inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.hyprland;
+    in
     {
       home.sessionVariables = {
         XDG_CURRENT_DESKTOP = "Hyprland";
         XDG_SESSION_DESKTOP = "Hyprland";
         GTK_CSD = "0";
       };
-
       wayland.windowManager.hyprland = {
         enable = true;
         xwayland.enable = true;
-        package = inputs.hyprland.packages.${pkgs.system}.hyprland;
+        package = hyprlandPkg;
         systemd = {
           enable = true;
           extraCommands = lib.mkBefore [
@@ -48,7 +50,6 @@
             "systemctl --user start hyprland-session.target"
           ];
         };
-
         settings = {
           animations = {
             enabled = true;
@@ -63,11 +64,9 @@
               "workspaces, 1, 5, workspace, slidefadevert 8%"
             ];
           };
-
           xwayland = {
             force_zero_scaling = true;
           };
-
           decoration = {
             rounding = 3;
             active_opacity = 1.0;
@@ -79,14 +78,12 @@
               size = 16;
             };
           };
-
           general = {
             gaps_in = 3;
             gaps_out = 7;
             border_size = 3;
             layout = "master";
           };
-
           input = {
             kb_layout = "us,ru";
             kb_options = "grp:caps_toggle";
@@ -96,14 +93,12 @@
               natural_scroll = true;
             };
           };
-
           misc = {
             disable_autoreload = false;
             disable_hyprland_logo = true;
             focus_on_activate = false;
             force_default_wallpaper = 0;
           };
-
           bind = [
             "SUPER, Return, exec, kitty"
             "SUPER, D, exec, wofi --show drun"

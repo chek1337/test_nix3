@@ -5,7 +5,7 @@
       programs.yazi = {
         enable = true;
         enableZshIntegration = true;
-	shellWrapperName = "y";
+        shellWrapperName = "y";
       };
     };
 }
