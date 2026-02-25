@@ -68,17 +68,11 @@
             force_zero_scaling = true;
           };
 
-          gestures = {
-            workspace_swipe = true;
-            workspace_swipe_fingers = 3;
-          };
-
           decoration = {
             rounding = 3;
             active_opacity = 1.0;
             inactive_opacity = 1.0;
             fullscreen_opacity = 1.0;
-            drop_shadow = false;
             blur = {
               enabled = true;
               passes = 3;
