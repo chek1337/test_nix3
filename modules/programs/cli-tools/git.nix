@@ -8,6 +8,7 @@
           user.name = "chek1337";
           user.email = "DaniPlay1337@yandex.ru";
           alias.gdsbs = "diff --side-by-side";
+	  pull.rebase = true;
         };
       };
 
