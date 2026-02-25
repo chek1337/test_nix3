@@ -10,8 +10,8 @@ alias t := test
 alias ti := test-interactive
 alias b := build
 alias bi := build-interactive
-alias d := deploy
-alias di := deploy-interactive
+alias bo := boot
+alias boi := boot-interactive
 alias up := update
 alias hw := gen-hardware
 alias hwi := gen-hardware-interactive
@@ -19,44 +19,50 @@ alias hwi := gen-hardware-interactive
 # Apply configuration for the current host
 [group("deploy")]
 switch hostname:
+    git add .
     sudo nixos-rebuild switch --flake "{{flake}}#{{hostname}}"
 
 # Interactively select host and apply
 [group("deploy")]
 switch-interactive:
+    git add .
     just switch $(ls modules/hosts | fzf --prompt="switch > ")
 
 # Test configuration without applying
 [group("deploy")]
 test hostname:
+    git add .
     sudo nixos-rebuild test --flake "{{flake}}#{{hostname}}"
 
 # Test interactively
 [group("deploy")]
 test-interactive:
+    git add .
     just test $(ls modules/hosts | fzf --prompt="test > ")
 
 # Build configuration without applying
 [group("deploy")]
 build hostname:
+    git add .
     nixos-rebuild build --flake "{{flake}}#{{hostname}}"
 
 # Build interactively
 [group("deploy")]
 build-interactive:
+    git add .
     just build $(ls modules/hosts | fzf --prompt="build > ")
 
-# git add . + switch
+# Apply configuration on next boot
 [group("deploy")]
-deploy hostname:
+boot hostname:
     git add .
-    just switch {{hostname}}
+    sudo nixos-rebuild boot --flake "{{flake}}#{{hostname}}"
 
-# git add . + interactive switch
+# Apply configuration on next boot interactively
 [group("deploy")]
-deploy-interactive:
+boot-interactive:
     git add .
-    just switch-interactive
+    just boot $(ls modules/hosts | fzf --prompt="boot > ")
 
 # Generate hardware config for current machine
 [group("utils")]
