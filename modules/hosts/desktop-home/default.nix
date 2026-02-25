@@ -1,16 +1,14 @@
 { config, ... }:
 let
   flakeConfig = config;
-  modules = [
-    "cli-tools"
-    "gui-tools"
-    "wofi"
-    "wayland-common"
-    "waybar"
-    "sway"
-    "terminals"
-  ];
-in
+modules = [
+  "cli-tools"
+  "gui-tools"
+  "wayland-common"
+  "hyprland"
+  "terminals"
+  "desktop-env"
+];in
 {
   flake = {
     nixosConfigurations.desktop-home = flakeConfig.flake.lib.mkSystems.linux "desktop-home";
