@@ -1,5 +1,5 @@
 {
-  flake.modules.homeManager.destop-env =
+  flake.modules.homeManager.destkop-env =
     { pkgs, ... }:
     {
       home.packages = with pkgs; [ nautilus ];
