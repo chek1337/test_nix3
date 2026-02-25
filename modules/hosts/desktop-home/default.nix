@@ -8,6 +8,7 @@ modules = [
   "hyprland"
   "terminals"
   "desktop-env"
+  "shells"
 ];in
 {
   flake = {
