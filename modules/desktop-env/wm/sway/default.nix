@@ -40,7 +40,7 @@
           modifier = "Mod4";
 
           gaps.inner = 7;
-          bars = [];
+          bars = [ ];
           window.titlebar = false;
 
           input = {
@@ -56,12 +56,14 @@
             };
           };
 
-          keybindings = let
-            modifier = "Mod4";
-          in lib.mkOptionDefault {
-            "${modifier}+Return" = "exec kitty";
-            "${modifier}+d" = "exec wofi --show drun";
-          };
+          keybindings =
+            let
+              modifier = "Mod4";
+            in
+            lib.mkOptionDefault {
+              "${modifier}+Return" = "exec kitty";
+              "${modifier}+d" = "exec wofi --show drun";
+            };
         };
       };
     };

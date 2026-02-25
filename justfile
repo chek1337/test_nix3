@@ -94,4 +94,4 @@ gc:
 # Format all nix files
 [group("utils")]
 fmt:
-    nixfmt-rfc-style modules/ flake.nix
+    find . -name "*.nix" -not -path "./.git/*" | xargs nixfmt

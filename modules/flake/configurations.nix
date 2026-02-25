@@ -7,7 +7,8 @@
 let
   username = "chek";
 
-  mkNixos = system: cls: name:
+  mkNixos =
+    system: cls: name:
     lib.nixosSystem {
       inherit system;
       modules = [
@@ -33,12 +34,16 @@ in
   flake.lib = {
     mkSystems = { inherit linux linux-arm wsl; };
 
-    loadNixosAndHmModuleForUser = config: modules:
+    loadNixosAndHmModuleForUser =
+      config: modules:
       (builtins.map (module: config.flake.modules.nixos.${module} or { }) modules)
-      ++ [{
-        imports = [ inputs.home-manager.nixosModules.home-manager ];
-        home-manager.users.${username}.imports =
-          builtins.map (module: config.flake.modules.homeManager.${module} or { }) modules;
-      }];
+      ++ [
+        {
+          imports = [ inputs.home-manager.nixosModules.home-manager ];
+          home-manager.users.${username}.imports = builtins.map (
+            module: config.flake.modules.homeManager.${module} or { }
+          ) modules;
+        }
+      ];
   };
 }

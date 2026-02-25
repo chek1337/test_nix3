@@ -1,4 +1,5 @@
-{ ... }: {
+{ ... }:
+{
   flake.modules.nixos.nixos =
     { pkgs, ... }:
     {
