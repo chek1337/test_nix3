@@ -8,6 +8,7 @@ let
         just
         fzf
         nixfmt
+        fastfetch
       ];
     };
 in
