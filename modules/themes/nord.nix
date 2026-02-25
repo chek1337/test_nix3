@@ -21,6 +21,11 @@
             applications = 12;
           };
         };
+        stylix.cursor = {
+          package = pkgs.nordzy-cursor-theme;
+          name = "Nordzy-cursors";
+          size = 24;
+        };
       };
     };
 
