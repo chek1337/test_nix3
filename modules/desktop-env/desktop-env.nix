@@ -4,6 +4,7 @@
     imports = with config.flake.modules.homeManager; [
       waybar
       wofi
+      hyprlock
     ];
   };
 }
