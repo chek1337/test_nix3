@@ -96,5 +96,6 @@ gc: stage
 
 # Format all nix files
 [group("utils")]
-fmt: stage
+fmt:
     find . -name "*.nix" -not -path "./.git/*" | xargs nixfmt
+    just stage

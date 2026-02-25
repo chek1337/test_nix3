@@ -1,7 +1,7 @@
 { config, ... }:
 let
   flakeConfig = config;
-  shell = "nu"; 
+  shell = "nu";
   modules = [
     "cli-tools"
     "gui-tools"
