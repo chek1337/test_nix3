@@ -22,7 +22,6 @@
         wayland
         grim
         slurp
-        wl-clipboard
       ];
     };
 
