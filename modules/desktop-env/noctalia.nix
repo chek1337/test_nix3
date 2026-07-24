@@ -141,7 +141,12 @@
           # Per-widget settings (was the inline widget objects in v4 bar.widgets).
           widget = {
             keyboard_layout.show_icon = false;
-            media.max_length = 150; # was MediaMini.maxWidth = 150
+            # Ширина медиа-виджета динамическая: он измеряет текст и делает
+            # clamp(ширина_текста, min_length, max_length). min_length=0 убирает
+            # добор пустотой на коротких названиях, большой max_length позволяет
+            # длинным помещаться целиком (дефолты были 80/220).
+            media.min_length = 0;
+            media.max_length = 600;
             # chrono format inside {:...}. Time · date · short weekday (%a renders
             # in ru via shell.lang). tooltip_format shows the full date on hover.
             clock = {
