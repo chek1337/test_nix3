@@ -1,4 +1,7 @@
-{ inputs, ... }:
+{ inputs, config, ... }:
+let
+  flakeConfig = config;
+in
 {
   perSystem =
     { config, system, ... }:
@@ -6,6 +9,9 @@
       pkgs = import inputs.nixpkgs {
         inherit system;
         config.allowUnfree = true;
+        # nvim-dap / nvim-lint качаются с недоступного Codeberg — см.
+        # modules/nixos-params/vim-plugins-github-mirror.nix
+        overlays = [ flakeConfig.flake.overlays.vimPluginsGithubMirror ];
       };
       nixvimPkg = inputs.nixvim.legacyPackages.${system}.makeNixvimWithModule {
         inherit pkgs;

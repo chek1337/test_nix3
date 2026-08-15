@@ -67,7 +67,10 @@ let
       pkgs = import inputs.nixpkgs {
         inherit system;
         config.allowUnfree = true;
-        overlays = [ inputs.nix-firefox-addons.overlays.default ];
+        overlays = [
+          inputs.nix-firefox-addons.overlays.default
+          flakeConfig.flake.overlays.vimPluginsGithubMirror
+        ];
       };
       extraSpecialArgs = {
         pkgs-stable = import inputs.nixpkgs-stable {
