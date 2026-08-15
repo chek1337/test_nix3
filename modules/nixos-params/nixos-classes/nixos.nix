@@ -30,8 +30,10 @@
         ];
       };
       nixpkgs.config.allowUnfree = true;
-      # NB: nixpkgs.config merges shallowly (`//`), so permittedInsecurePackages
-      # must be declared in exactly one module — currently services/winboat.nix.
+      # NB: у опции nixpkgs.config поверхностный merge (`//`), поэтому
+      # permittedInsecurePackages нельзя объявлять в нескольких модулях —
+      # выживет только одно определение. Исключения для stable-пакетов задаются
+      # в config'е pkgs-stable (modules/nixos-params/configurations.nix).
       users.users.${username} = {
         isNormalUser = true;
         home = "/home/${username}";

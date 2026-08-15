@@ -1,7 +1,12 @@
 { ... }:
 {
   flake.modules.nixos.winboat =
-    { config, pkgs, ... }:
+    {
+      config,
+      pkgs,
+      pkgs-stable,
+      ...
+    }:
     let
       username = config.settings.username;
     in
@@ -9,14 +14,14 @@
       # WinBoat: Run Windows apps on Linux with seamless integration.
       # It uses a containerized Windows VM and FreeRDP RemoteApp.
 
-      environment.systemPackages = with pkgs; [
+      # Пин winboat и его замыкания (Electron, FreeRDP) на stable: в unstable
+      # Electron 40 помечен EOL и eval падает, поэтому исключение для
+      # electron-40.10.5 живёт в config'е pkgs-stable
+      # (modules/nixos-params/configurations.nix), а не в nixpkgs.config хоста.
+      environment.systemPackages = with pkgs-stable; [
         winboat
         freerdp
       ];
-
-      # winboat is built against an Electron release that upstream already
-      # marked EOL; nothing else in the config pulls it in.
-      nixpkgs.config.permittedInsecurePackages = [ "electron-40.10.5" ];
 
       # WinBoat requires docker or podman to manage its containers.
       virtualisation.docker.enable = true;

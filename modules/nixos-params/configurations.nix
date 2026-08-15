@@ -34,7 +34,12 @@ let
         pkgs-stable = import inputs.nixpkgs-stable {
           inherit system;
           config.allowUnfree = true;
-          config.permittedInsecurePackages = [ "openssl-1.1.1w" ];
+          config.permittedInsecurePackages = [
+            "openssl-1.1.1w"
+            # winboat пинится на stable и тянет Electron 40, который апстрим
+            # уже пометил EOL; см. modules/services/winboat.nix.
+            "electron-40.10.5"
+          ];
         };
       };
       modules = [
