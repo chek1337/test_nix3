@@ -14,6 +14,10 @@
         freerdp
       ];
 
+      # winboat is built against an Electron release that upstream already
+      # marked EOL; nothing else in the config pulls it in.
+      nixpkgs.config.permittedInsecurePackages = [ "electron-40.10.5" ];
+
       # WinBoat requires docker or podman to manage its containers.
       virtualisation.docker.enable = true;
 

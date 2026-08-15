@@ -30,9 +30,8 @@
         ];
       };
       nixpkgs.config.allowUnfree = true;
-      nixpkgs.config.permittedInsecurePackages = [
-        # "openssl-1.1.1w"
-      ];
+      # NB: nixpkgs.config merges shallowly (`//`), so permittedInsecurePackages
+      # must be declared in exactly one module — currently services/winboat.nix.
       users.users.${username} = {
         isNormalUser = true;
         home = "/home/${username}";
