@@ -114,7 +114,7 @@
             "vless"
             "wireguard"
           ];
-          default = "vless";
+          default = "wireguard";
           description = "Mirror of nixos settings.singboxRuUpstream — see nixos-classes/settings.nix.";
         };
 

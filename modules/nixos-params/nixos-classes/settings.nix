@@ -62,7 +62,7 @@
             "vless"
             "wireguard"
           ];
-          default = "vless";
+          default = "wireguard";
           description = ''
             Upstream for the singbox-ru transparent proxy: "vless" parses the
             vless-chumakov secret, "wireguard" parses the WireGuard config named
