@@ -189,10 +189,11 @@ in
             else:
                 sys.exit("unsupported upstream: expected a vless:// URL or a WireGuard config")
 
+            # routing_mark keeps sing-box's own egress out of its own TUN; without a
+            # TUN there is nothing to escape from. It doubles as what makes this
+            # outbound "non-empty" for the detour check below.
             direct = {"type": "direct", "tag": "direct"}
             if mode == "tun":
-                # Keeps sing-box's own egress out of its TUN; needs CAP_NET_ADMIN,
-                # which the TUN-less mode deliberately does not have.
                 direct["routing_mark"] = 100
 
             outbounds = [direct]
@@ -244,11 +245,17 @@ in
                 "log": {"level": "info", "timestamp": True},
                 "dns": {
                     "servers": [
+                        # No detour without a TUN: a DNS server with no detour dials
+                        # through the OS directly, which is exactly what "direct"
+                        # means here — and sing-box rejects a detour into a direct
+                        # outbound that carries no dialer options at all. Under a TUN
+                        # the detour is required instead, so the query rides the
+                        # marked socket and does not loop back into the tunnel.
                         {
                             "type": "udp",
                             "tag": "dns-direct",
                             "server": "77.88.8.8",
-                            "detour": "direct",
+                            **({"detour": "direct"} if mode == "tun" else {}),
                         },
                         {
                             "type": "udp",
