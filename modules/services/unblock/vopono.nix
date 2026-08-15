@@ -40,6 +40,21 @@ in
         after = [ "network.target" ];
         requires = [ "network.target" ];
         wantedBy = [ "multi-user.target" ];
+        # Демон делает всю привилегированную работу сам (netns, firewall, wg),
+        # поэтому инструменты должны быть в PATH юнита: systemd даёт только
+        # coreutils/findutils/grep/sed/systemd, и vopono падает с
+        # "Neither nftables nor iptables is installed!".
+        path =
+          with pkgs;
+          [
+            vopono
+            wireguard-tools
+            iproute2
+            procps
+            sudo
+          ]
+          ++ (if config.networking.nftables.enable then [ nftables ] else [ iptables ])
+          ++ lib.optional (config.settings.amneziaWgExtraConfigs != [ ]) amneziawg-tools;
         serviceConfig = {
           Type = "simple";
           ExecStart = "${pkgs.vopono}/bin/vopono daemon";
