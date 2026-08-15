@@ -8,14 +8,6 @@
       ...
     }:
     let
-      # v5 builtin palette names: Ayu | Catppuccin | Dracula | Eldritch | Gruvbox |
-      # Kanagawa | Noctalia | Nord | Rosé Pine | Tokyo-Night
-      noctaliaSchemeMap = {
-        "nord" = "Nord";
-        "catppuccin-mocha" = "Catppuccin";
-        "gruvbox-dark-hard" = "Gruvbox";
-      };
-      noctaliaScheme = noctaliaSchemeMap.${config.settings.colorScheme} or "Nord";
       isLaptop = config.settings.isLaptop;
       hasBluetooth = config.settings.hasBluetooth;
       wgName = config.settings.wireguardConfigName;
@@ -155,13 +147,12 @@
             };
           };
 
-          theme = {
-            mode = "dark"; # was colorSchemes.darkMode
-            source = "builtin"; # was colorSchemes.useWallpaperColors = false
-            builtin = noctaliaScheme;
-            # v4 templates.activeTemplates = ["telegram"] has no v5 builtin equivalent
-            # (the telegram builtin template was dropped). Re-add as a user template if needed.
-          };
+          # theme.{mode,source,custom_palette} задаёт stylix-target noctalia
+          # (stylix/modules/noctalia/hm.nix): source = "custom" с палитрой из
+          # base16Scheme и mode из stylix.polarity. Здесь их дублировать нельзя —
+          # апстрим пишет их без mkDefault, получается конфликт определений.
+          # v4 templates.activeTemplates = ["telegram"] has no v5 builtin equivalent
+          # (the telegram builtin template was dropped). Re-add as a user template if needed.
 
           notification.position = "bottom_right"; # was notifications.location
 
